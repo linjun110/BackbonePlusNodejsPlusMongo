@@ -21,7 +21,11 @@ define(['marionette', 'text!templates/fooLayoutTemplate.html', 'views/booksCompo
 			region_2: "#foo_layout_region_2"
 		},
 		onShow: function () {
-			this.region_1.show(new BooksCompositeView({collection: new BooksCollection()}));
+			var _booksCompositeView = new BooksCompositeView({collection: new BooksCollection()});
+			_booksCompositeView.on("booksCompositeEvent", function(e){
+				console.log("Detect booksCompositeEvent occurs in view, e:", e);
+			});
+			this.region_1.show(_booksCompositeView);
 			this.region_2.show(new FoodsCompositeView({collection: new FoodsCollection()}));
 
 			//this.region_2.show(new UserView({model: new UserModel({_id: 0})}));
